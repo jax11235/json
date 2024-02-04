@@ -18828,10 +18828,16 @@ class serializer
 
     void dump_float(number_float_t x, std::true_type /*is_ieee_single_or_double*/)
     {
-        auto* begin = number_buffer.data();
-        auto* end = ::nlohmann::detail::to_chars(begin, begin + number_buffer.size(), x);
+        // auto* begin = number_buffer.data();
+        // auto* end = ::nlohmann::detail::to_chars(begin, begin + number_buffer.size(), x);
 
-        o->write_characters(begin, static_cast<size_t>(end - begin));
+        // o->write_characters(begin, static_cast<size_t>(end - begin));
+
+        std::stringstream ss;
+        ss.precision(3);
+        ss << x;
+        auto s = ss.str();
+        o->write_characters(&s[0], s.length());
     }
 
     void dump_float(number_float_t x, std::false_type /*is_ieee_single_or_double*/)
