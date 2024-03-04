@@ -18834,7 +18834,7 @@ class serializer
         // o->write_characters(begin, static_cast<size_t>(end - begin));
 
         std::stringstream ss;
-        ss.precision(3);
+        ss.precision(x < 100? 3 : (x < 1000? 4 : 5));
         ss << x;
         auto s = ss.str();
         o->write_characters(&s[0], s.length());
